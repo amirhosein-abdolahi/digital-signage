@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export default function Modal({ onClose, onOk }) {
@@ -10,11 +10,11 @@ export default function Modal({ onClose, onOk }) {
   const dialogRef = useRef(null);
   const [filePiked, setFilePiked] = useState(null);
   const fileInput = useRef();
+  const { push } = useRouter();
 
   useEffect(() => {
     if (modalParam) {
       dialogRef.current?.showModal();
-      console.log(dialogRef.current);
     } else {
       dialogRef.current?.close();
     }
@@ -22,7 +22,9 @@ export default function Modal({ onClose, onOk }) {
 
   const closeModal = () => {
     dialogRef.current?.close();
+    push("/edit");
     onClose();
+    setFilePiked(null);
   };
 
   const clickOk = () => {
@@ -43,18 +45,20 @@ export default function Modal({ onClose, onOk }) {
 
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      setFilePiked(fileReader.result);
+      if (modalParam === "new") {
+        setFilePiked(fileReader.result);
+      } else {
+        const videoURL = URL.createObjectURL(file);
+        setFilePiked(videoURL);
+      }
     };
 
     fileReader.readAsDataURL(file);
   };
 
-  const modal = modalParam ? (
-    <dialog
-      ref={dialogRef}
-      className="fixed p-5 top-50 right-50 -translate-x-50 -translate-y-50 z-10 rounded-2xl backdrop:bg-natural-700/70"
-    >
-      <form className="w-[500px] grid gap-5">
+  const modalContent =
+    modalParam !== "subtitle" ? (
+      <div className="grid gap-5">
         <div className="flex flex-row-reverse items-center gap-5">
           <h1 className="text-xl">عنوان</h1>
           <input
@@ -73,7 +77,9 @@ export default function Modal({ onClose, onOk }) {
             افزودن فایل
           </button>
           <div className="relative rounded-lg overflow-hidden left-0 w-[200px] h-[150px]">
-            {filePiked ? (
+            {!filePiked ? (
+              <p>فایل یافت نشد</p>
+            ) : modalParam === "new" ? (
               <Image
                 src={filePiked}
                 alt="The image selected by user"
@@ -81,16 +87,48 @@ export default function Modal({ onClose, onOk }) {
                 objectFit="cover"
               />
             ) : (
-              <p>تصویری یافت نشد</p>
+              <video className="absolute top-0 left-0 w-full h-full object-cover -z-1">
+                <source src={filePiked} type="video/mp4" />
+              </video>
             )}
           </div>
-          <input
-            type="file"
-            className="hidden"
-            ref={fileInput}
-            onChange={handleFileChange}
-          />
+          {modalParam === "new" ? (
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              className="hidden"
+              ref={fileInput}
+              onChange={handleFileChange}
+            />
+          ) : (
+            <input
+              type="file"
+              accept="video/mp4"
+              className="hidden"
+              ref={fileInput}
+              onChange={handleFileChange}
+            />
+          )}
         </div>
+      </div>
+    ) : (
+      <div dir="rtl" className="grid gap-5">
+        <h1 className="text-xl">متن زیرنویس</h1>
+        <textarea
+          placeholder="متن مورد نظر را وارد کنید ..."
+          style={{ height: "200px" }}
+          className="p-2 border-[3px] border-secondary-2 rounded-xl"
+        />
+      </div>
+    );
+
+  const modal = modalParam ? (
+    <dialog
+      ref={dialogRef}
+      className="fixed p-5 top-50 right-50 -translate-x-50 -translate-y-50 z-10 rounded-2xl backdrop:bg-natural-700/70"
+    >
+      <form className="w-[500px] grid gap-5">
+        {modalContent}
         <div className="flex justify-end gap-5 *:text-xl">
           <button
             type="button"
@@ -100,7 +138,7 @@ export default function Modal({ onClose, onOk }) {
             انصراف
           </button>
           <button
-            type="submit"
+            type="button"
             onClick={clickOk}
             className="px-3 py-1 bg-secondary-2 text-white rounded-lg"
           >
