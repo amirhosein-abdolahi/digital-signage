@@ -1,11 +1,19 @@
 "use client";
 
-import { deleteANew } from "@/lib/actions";
+import { deleteANew, deleteAVideo } from "@/lib/actions";
 
-export default function ControlButtons({ slug, image }) {
+export default function ControlButtons({ slug, file, type }) {
   const handleDelete = async () => {
     try {
-      await deleteANew(slug, image);
+      if (type === "new") {
+        await deleteANew(slug, file);
+      } else if (type === "video") {
+        await deleteAVideo(slug, file);
+      } else if (type === "subtitle") {
+        // TODO
+      } else {
+        // Nothing
+      }
     } catch (error) {
       console.log("Failed to delete:", error);
     }

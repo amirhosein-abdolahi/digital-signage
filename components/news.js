@@ -17,7 +17,7 @@ function New({ slug, title, image }) {
         <Image src={image} alt={title} fill objectFit="cover" />
       </div>
       <h1 className="py-2 px-3 font-sh text-sm text-end">{title}</h1>
-      <ControlButtons slug={slug} image={image} />
+      <ControlButtons slug={slug} file={image} type={"new"} />
     </div>
   );
 }

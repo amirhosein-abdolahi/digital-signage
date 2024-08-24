@@ -1,6 +1,6 @@
 "use client";
 
-import { addANew } from "@/lib/actions";
+import { addANew, addAVideo } from "@/lib/actions";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -13,7 +13,7 @@ export default function Modal() {
   const fileInput = useRef();
   const { push } = useRouter();
 
-  const onSave = modalParam === "new" ? addANew : () => {};
+  const onSave = modalParam === "video" ? addAVideo : () => {};
 
   useEffect(() => {
     if (modalParam) {
