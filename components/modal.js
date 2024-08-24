@@ -1,6 +1,6 @@
 "use client";
 
-import { addANew, addAVideo } from "@/lib/actions";
+import { addANew, addASubtitle, addAVideo } from "@/lib/actions";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -13,7 +13,16 @@ export default function Modal() {
   const fileInput = useRef();
   const { push } = useRouter();
 
-  const onSave = modalParam === "video" ? addAVideo : () => {};
+  const onSave =
+    modalParam === "new"
+      ? addANew
+      : modalParam === "video"
+      ? addAVideo
+      : modalParam === "subtitle"
+      ? addASubtitle
+      : () => {
+          console.error("Modal param not found");
+        };
 
   useEffect(() => {
     if (modalParam) {

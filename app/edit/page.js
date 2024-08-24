@@ -2,7 +2,7 @@ import Frame from "@/components/frame";
 import Header from "@/components/header";
 import Modal from "@/components/modal";
 import News from "@/components/news";
-import Subtitle from "@/components/subtitle";
+import Subtitles from "@/components/subtitles";
 import Videos from "@/components/videos";
 
 export default function Edit() {
@@ -18,9 +18,7 @@ export default function Edit() {
           <Videos />
         </Frame>
         <Frame title={"زیرنویس"} modal={"subtitle"}>
-          <Subtitle />
-          <Subtitle />
-          <Subtitle />
+          <Subtitles />
         </Frame>
       </div>
     </main>
