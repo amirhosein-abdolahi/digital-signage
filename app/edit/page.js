@@ -1,9 +1,9 @@
-import Frame from "@/components/frame";
-import Header from "@/components/header";
-import Modal from "@/components/modal";
-import News from "@/components/news";
-import Subtitles from "@/components/subtitles";
-import Videos from "@/components/videos";
+import Frame from "@/components/controlPage/frame";
+import Header from "@/components/controlPage/header";
+import Modal from "@/components/controlPage/modal";
+import News from "@/components/controlPage/news";
+import Subtitles from "@/components/controlPage/subtitles";
+import Videos from "@/components/controlPage/videos";
 
 export default function Edit() {
   return (
