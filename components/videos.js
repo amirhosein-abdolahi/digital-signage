@@ -14,7 +14,9 @@ function Video({ slug, title, video }) {
   return (
     <div className="group flex flex-col bg-natural-100 rounded-xl overflow-hidden">
       <VideoPlayer url={video} />
-      <p className="py-2 px-3 font-sh text-end">{title}</p>
+      <p dir="rtl" className="py-2 px-3 font-sh text-start">
+        {title}
+      </p>
       <ControlButtons slug={slug} file={video} type={"video"} />
     </div>
   );
