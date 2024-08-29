@@ -34,6 +34,18 @@ module.exports = {
         gradient:
           "linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, rgba(42, 69, 139, 0.7) 68.97%, #1D325B 97.4%)",
       },
+      boxShadow: {
+        main: "3.8px 7.5px 7.5px hsl(0deg 0% 0% / 0.20);",
+      },
+      keyframes: {
+        ticker: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+      },
+      animation: {
+        ticker: "ticker 10s linear infinite",
+      },
     },
   },
   plugins: [],
