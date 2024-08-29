@@ -25,3 +25,7 @@ body {
   color: black;
   font-family: "shabnam", sans-serif;
 }
+
+nextjs-portal {
+  display: none;
+}
