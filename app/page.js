@@ -7,6 +7,8 @@ import Clock from "@/components/mainPage/clock";
 import Subtitle from "@/components/mainPage/subtitle";
 import Slider from "@/components/mainPage/slider";
 import Player from "@/components/mainPage/player";
+import Weather from "@/components/mainPage/weather";
+import Date from "@/components/mainPage/date";
 
 export default function Home() {
   return (
@@ -14,14 +16,14 @@ export default function Home() {
       <div className="relative h-screen overflow-hidden">
         <Image
           src={background}
-          alt="logo"
+          alt="background image"
           fill
           className="scale-125 -translate-y-24"
         />
         <main className="absolute w-full h-screen bg-black/45">
           <header className="relative w-full min-h-[180px] flex justify-center items-center">
             <div className="absolute pt-3 top-5 left-10 rounded-xl bg-natural-100/70 shadow-main">
-              <Image src={logo} alt="logo" width={140} height={140} />
+              <Image src={logo} alt="logo" width={100} height={100} />
             </div>
             <div className="w-fit h-fit px-32 py-6 bg-primary-1/70 rounded-xl shadow-main">
               <h1 className="text-natural-100 text-5xl">
@@ -30,11 +32,11 @@ export default function Home() {
             </div>
             <Link
               href={"/edit"}
-              className="absolute p-1 top-5 right-7 bg-primary-1 rounded-xl"
+              className="absolute p-1 top-5 right-7 bg-primary-1 rounded-lg"
             >
               <svg
-                width="40px"
-                height="40px"
+                width="30px"
+                height="30px"
                 viewBox="-0.5 0 25 25"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -70,11 +72,13 @@ export default function Home() {
               </svg>
             </Link>
           </header>
-          <section className="grid mx-10 gap-x-20 grid-cols-5 ">
-            <Slider />
+          <section className="grid h-[540px] mx-10 grid-flow-col gap-x-10 gap-y-5 grid-cols-3 grid-rows-3">
             <Player />
+            <Slider />
+            <Weather />
+            <Date />
           </section>
-          <footer className="flex mx-10 justify-center items-center gap-7 h-[150px]">
+          <footer className="flex mx-10 justify-center items-center gap-7 h-[140px]">
             <Subtitle />
             <Clock />
           </footer>
