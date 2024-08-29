@@ -32,8 +32,8 @@ export default function Slider() {
   }
 
   return (
-    <div className="col-span-2 w-full h-[180px]  flex justify-center bg-secondary-1 rounded-2xl shadow-main">
-      <div className="relative mx-4 w-full h-[180px] -translate-y-4">
+    <div className="w-full flex justify-center bg-secondary-1/80 rounded-2xl shadow-main">
+      <div className="relative mx-4 w-full -translate-y-4">
         <Image
           src={news[currentSlid].image}
           alt={news[currentSlid].title}
@@ -43,7 +43,7 @@ export default function Slider() {
         />
         <div
           dir="rtl"
-          className="absolute px-8 py-6 flex items-end w-full h-full text-natural-100 text-xl rounded-xl bg-gradient shadow-main"
+          className="absolute px-5 py-3 flex items-end w-full h-full text-natural-100 text-lg rounded-xl bg-gradient shadow-main"
         >
           {news[currentSlid].title}
         </div>

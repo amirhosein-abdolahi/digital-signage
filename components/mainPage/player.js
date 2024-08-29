@@ -34,8 +34,8 @@ export default function Player() {
   }
 
   return (
-    <div className="col-span-3 bg-primary-1 rounded-2xl shadow-main">
-      <div className="mx-5 rounded-xl shadow-main overflow-auto -translate-y-5">
+    <div className="col-span-2 row-span-3 mt-5 h-fit bg-primary-1/80 rounded-2xl shadow-main">
+      <div className="mx-6 rounded-xl shadow-main overflow-auto -translate-y-6">
         <div className="w-full h-full bg-black">
           <ReactPlayer
             url={videos[currentPlay].video}
