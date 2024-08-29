@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteANew, deleteAVideo } from "@/lib/actions";
+import { deleteANew, deleteASubtitle, deleteAVideo } from "@/lib/actions";
 
 export default function ControlButtons({ slug, file, type }) {
   const handleDelete = async () => {
@@ -10,7 +10,7 @@ export default function ControlButtons({ slug, file, type }) {
       } else if (type === "video") {
         await deleteAVideo(slug, file);
       } else if (type === "subtitle") {
-        // TODO
+        await deleteASubtitle(slug);
       } else {
         // Nothing
       }
