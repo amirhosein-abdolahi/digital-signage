@@ -1,9 +1,20 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 import logo from "@/assets/images/logo.png";
-import Link from "next/link";
 
-export default function Header({ children }) {
+export default function Header() {
+  const searchParams = useSearchParams();
+  const { push } = useRouter();
+  const pathname = usePathname();
+
+  const handleButton = () => {
+    const params = new URLSearchParams(searchParams);
+    push(`/?${params.toString()}`);
+  };
+
   return (
     <>
       <header className="w-full mb-5">
@@ -12,13 +23,15 @@ export default function Header({ children }) {
             <Image src={logo} alt="logo" width={70} height={70} />
           </li>
           <li>
-            <button className="h-10 px-4 text-white bg-secondary-2 rounded-lg hover:bg-secondary-3">
-              <Link href={"/"}>بازگشت به صفحه اصلی</Link>
+            <button
+              className="h-10 px-4 text-white bg-secondary-2 rounded-lg hover:bg-secondary-3"
+              onClick={handleButton}
+            >
+              بازگشت به صفحه اصلی
             </button>
           </li>
         </ul>
       </header>
-      <main>{children}</main>
     </>
   );
 }

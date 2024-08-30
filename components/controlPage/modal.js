@@ -34,8 +34,10 @@ export default function Modal() {
 
   const handleModal = () => {
     dialogRef.current?.close();
-    push("/edit");
     setFilePiked(null);
+    const params = new URLSearchParams(searchParams);
+    params.delete("modal");
+    push(`/edit?${params.toString()}`);
   };
 
   function handlePikedFile() {

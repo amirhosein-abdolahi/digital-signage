@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Slider() {
   const [news, setNews] = useState();
   const [currentSlid, setCurrentSlid] = useState(0);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,12 +22,19 @@ export default function Slider() {
   }, []);
 
   useEffect(() => {
+    const getSpeed = () => {
+      const params = new URLSearchParams(searchParams);
+      const speed = params.get("new-speed");
+      return speed ? speed : 5;
+    };
+    const speed = getSpeed();
+
     const interval = setInterval(() => {
       setCurrentSlid((prev) => (prev < news.length - 1 ? prev + 1 : 0));
-    }, 5000);
+    }, speed * 1000);
 
     return () => clearInterval(interval);
-  }, [news]);
+  }, [news, searchParams]);
 
   if (!news) {
     return null;

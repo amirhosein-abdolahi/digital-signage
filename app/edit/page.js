@@ -7,7 +7,7 @@ import Videos from "@/components/controlPage/videos";
 
 export default function Edit() {
   return (
-    <main className="px-4">
+    <main className="px-4 mb-10">
       <Modal />
       <Header />
       <div className="flex justify-center gap-10">
