@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import logo from "@/assets/images/logo.png";
+
 export default function Slider() {
   const [news, setNews] = useState();
   const [currentSlid, setCurrentSlid] = useState(0);
@@ -36,8 +38,18 @@ export default function Slider() {
     return () => clearInterval(interval);
   }, [news, searchParams]);
 
-  if (!news) {
-    return null;
+  if (!news || news.length === 0) {
+    return (
+      <div className="row-span-3 w-full flex justify-center items-center bg-secondary-1/80 rounded-2xl shadow-main">
+        <Image
+          src={logo}
+          height={100}
+          width={100}
+          alt="logo"
+          className="animate-pulse h-fit"
+        />
+      </div>
+    );
   }
 
   return (
