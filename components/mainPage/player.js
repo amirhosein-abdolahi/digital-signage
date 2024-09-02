@@ -56,6 +56,7 @@ export default function Player() {
             height={"100%"}
             controls
             playing={true}
+            loop={videos.length === 1 ? true : false}
             onEnded={handleVideosIndex}
           />
         </div>

@@ -1,4 +1,4 @@
-import SpeedControl from "./speedCopntrol";
+import SpeedControl from "./speedControl";
 import AddButton from "./addButton";
 
 export default function Frame({ title, modal, children }) {
