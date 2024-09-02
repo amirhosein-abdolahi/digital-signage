@@ -34,7 +34,7 @@ export default function Player() {
   }
 
   return (
-    <div className="col-span-2 row-span-3 self-center h-fit bg-primary-1/80 rounded-2xl shadow-main">
+    <div className="col-span-2 row-span-full self-center h-fit bg-primary-1/80 rounded-2xl shadow-main">
       <div className="mx-6 rounded-xl shadow-main overflow-auto -translate-y-6">
         <div className="w-full h-full bg-black">
           <ReactPlayer

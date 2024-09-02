@@ -26,7 +26,7 @@ export default function Date() {
   return (
     <div
       dir="rtl"
-      className="flex h-full px-5 py-4 text-nowrap bg-secondary-1/80 text-natural-700 rounded-xl"
+      className="row-span-2 flex h-full px-5 py-4 text-nowrap bg-secondary-1/80 text-natural-700 rounded-xl"
     >
       <div className="flex pl-5 flex-col justify-around text-xl border-l-2 border-natural-700/50">
         <h1 className="text-3xl">{`${dates.shamsi.day} ${dates.shamsi.month}`}</h1>

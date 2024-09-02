@@ -41,7 +41,7 @@ export default function Slider() {
   }
 
   return (
-    <div className="w-full flex justify-center bg-secondary-1/80 rounded-2xl shadow-main">
+    <div className="row-span-3 w-full flex justify-center bg-secondary-1/80 rounded-2xl shadow-main">
       <div className="relative mx-4 w-full -translate-y-4">
         <Image
           src={news[currentSlid].image}
