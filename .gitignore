@@ -37,8 +37,3 @@ next-env.d.ts
 
 # vscode
 .vscode
-
-# data
-data.db
-public/images/*
-public/videos/*
