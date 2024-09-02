@@ -8,7 +8,11 @@ export default function Clock() {
   useEffect(() => {
     const updateTime = () => {
       const data = new Date();
-      const showTime = data.getHours() + " : " + data.getMinutes();
+      const hour =
+        data.getHours() < 10 ? "0" + data.getHours() : data.getHours();
+      const minute =
+        data.getMinutes() < 10 ? "0" + data.getMinutes() : data.getMinutes();
+      const showTime = hour + " : " + minute;
       setTime(showTime);
     };
 
