@@ -33,7 +33,7 @@ export default function Home() {
             </div>
             <NavButton />
           </header>
-          <section className="grid h-[540px] mx-10 grid-flow-col gap-x-10 gap-y-5 grid-cols-3 grid-rows-3">
+          <section className="grid h-[540px] mx-10 grid-flow-col gap-x-10 gap-y-5 grid-cols-3 grid-rows-4">
             <Player />
             <Slider />
             <Weather />

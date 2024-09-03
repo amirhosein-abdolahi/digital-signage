@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
+import Image from "next/image";
+
+import logo from "@/assets/images/logo.png";
 
 export default function Player() {
   const [videos, setVideos] = useState();
@@ -29,12 +32,22 @@ export default function Player() {
     }
   };
 
-  if (!videos) {
-    return null;
+  if (!videos || videos.length === 0) {
+    return (
+      <div className="col-span-2 row-span-full flex justify-center items-center self-center h-full bg-primary-1/80 rounded-2xl shadow-main">
+        <Image
+          src={logo}
+          height={200}
+          width={200}
+          alt="logo"
+          className="animate-pulse h-fit"
+        />
+      </div>
+    );
   }
 
   return (
-    <div className="col-span-2 row-span-3 self-center h-fit bg-primary-1/80 rounded-2xl shadow-main">
+    <div className="col-span-2 row-span-full self-center h-fit bg-primary-1/80 rounded-2xl shadow-main">
       <div className="mx-6 rounded-xl shadow-main overflow-auto -translate-y-6">
         <div className="w-full h-full bg-black">
           <ReactPlayer
@@ -43,6 +56,7 @@ export default function Player() {
             height={"100%"}
             controls
             playing={true}
+            loop={videos.length === 1 ? true : false}
             onEnded={handleVideosIndex}
           />
         </div>
