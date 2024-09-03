@@ -40,7 +40,7 @@ export default function Slider() {
 
   if (!news || news.length === 0) {
     return (
-      <div className="row-span-3 w-full flex justify-center items-center bg-secondary-1/80 rounded-2xl shadow-main">
+      <div className="row-span-2 w-full flex justify-center items-center bg-secondary-1/80 rounded-2xl shadow-main">
         <Image
           src={logo}
           height={100}
