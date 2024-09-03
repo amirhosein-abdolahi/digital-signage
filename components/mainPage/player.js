@@ -33,17 +33,7 @@ export default function Player() {
   };
 
   if (!videos || videos.length === 0) {
-    return (
-      <div className="col-span-2 row-span-full flex justify-center items-center self-center h-full bg-primary-1/80 rounded-2xl shadow-main">
-        <Image
-          src={logo}
-          height={200}
-          width={200}
-          alt="logo"
-          className="animate-pulse h-fit"
-        />
-      </div>
-    );
+    return <Fallback />;
   }
 
   return (
@@ -61,6 +51,20 @@ export default function Player() {
           />
         </div>
       </div>
+    </div>
+  );
+}
+
+function Fallback() {
+  return (
+    <div className="col-span-2 row-span-full flex justify-center items-center self-center h-full bg-primary-1/80 rounded-2xl shadow-main">
+      <Image
+        src={logo}
+        height={200}
+        width={200}
+        alt="logo"
+        className="animate-pulse h-fit"
+      />
     </div>
   );
 }

@@ -39,17 +39,7 @@ export default function Slider() {
   }, [news, searchParams]);
 
   if (!news || news.length === 0) {
-    return (
-      <div className="row-span-2 w-full flex justify-center items-center bg-secondary-1/80 rounded-2xl shadow-main">
-        <Image
-          src={logo}
-          height={100}
-          width={100}
-          alt="logo"
-          className="animate-pulse h-fit"
-        />
-      </div>
-    );
+    return <Fallback />;
   }
 
   return (
@@ -69,6 +59,20 @@ export default function Slider() {
           {news[currentSlid].title}
         </div>
       </div>
+    </div>
+  );
+}
+
+function Fallback() {
+  return (
+    <div className="row-span-2 w-full flex justify-center items-center bg-secondary-1/80 rounded-2xl shadow-main">
+      <Image
+        src={logo}
+        height={100}
+        width={100}
+        alt="logo"
+        className="animate-pulse h-fit"
+      />
     </div>
   );
 }
