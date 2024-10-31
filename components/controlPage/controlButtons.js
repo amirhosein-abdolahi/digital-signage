@@ -1,8 +1,13 @@
 "use client";
 
 import { deleteANew, deleteASubtitle, deleteAVideo } from "@/lib/actions";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 export default function ControlButtons({ slug, file, type }) {
+  const searchParam = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
   const handleDelete = async () => {
     try {
       if (type === "new") {
@@ -17,6 +22,17 @@ export default function ControlButtons({ slug, file, type }) {
     } catch (error) {
       console.log("Failed to delete:", error);
     }
+  };
+
+  const handleEdit = async () => {
+    const params = new URLSearchParams(searchParam);
+    params.set("modal", type);
+    params.set("action", "edit");
+    params.set("slug", slug);
+    if (type !== "subtitle") {
+      params.set("file", file);
+    }
+    replace(`${pathname}?${params.toString()}`);
   };
 
   return (
@@ -46,7 +62,10 @@ export default function ControlButtons({ slug, file, type }) {
             </g>
           </svg>
         </button>
-        <button className="px-1 flex items-center gap-1 rounded-md bg-secondary-2">
+        <button
+          className="px-1 flex items-center gap-1 rounded-md bg-secondary-2"
+          onClick={handleEdit}
+        >
           <h1 className="text-white">تغییر</h1>
           <svg
             width="20px"

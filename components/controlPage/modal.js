@@ -1,42 +1,105 @@
 "use client";
 
-import { addANew, addASubtitle, addAVideo } from "@/lib/actions";
+import { addANew, addASubtitle, addAVideo, editANew } from "@/lib/actions";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export default function Modal() {
   const searchParams = useSearchParams();
-  const modalParam = searchParams.get("modal");
+  const modalType = searchParams.get("modal");
+  const modalAction = searchParams.get("action");
+  const modalSlug = searchParams.has("slug") && searchParams.get("slug");
+  const modalFile = searchParams.has("file") && searchParams.get("file");
   const dialogRef = useRef(null);
+  const [slug, setSlug] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [text, setText] = useState(null);
   const [filePiked, setFilePiked] = useState(null);
   const fileInput = useRef();
   const { push } = useRouter();
+  let onSave;
 
-  const onSave =
-    modalParam === "new"
-      ? addANew
-      : modalParam === "video"
-      ? addAVideo
-      : modalParam === "subtitle"
-      ? addASubtitle
-      : () => {
-          console.error("Modal param not found");
+  if (modalAction === "add") {
+    switch (modalType) {
+      case "new":
+        onSave = addANew;
+        break;
+      case "video":
+        onSave = addAVideo;
+        break;
+      case "subtitle":
+        onSave = addASubtitle;
+        break;
+      default:
+        console.error("Modal type not found");
+    }
+  } else if (modalAction === "edit") {
+    switch (modalType) {
+      case "new":
+        onSave = (formData) => {
+          editANew(modalSlug, modalFile, formData);
+          console.log(formData);
         };
+        // TODO
+        break;
+      case "video":
+        // TODO
+        break;
+      case "subtitle":
+        // TODO
+        break;
+      default:
+        console.error("Modal type not found");
+    }
+  }
 
   useEffect(() => {
-    if (modalParam) {
+    const fetchData = async () => {
+      const response = await fetch(`/api/${modalType}/${modalSlug}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const result = await response.json();
+      if (modalType === "new") {
+        setSlug(result.slug);
+        setTitle(result.title);
+        setFilePiked(result.image);
+      } else if (modalType === "video") {
+        // TODO
+      } else if (modalType === "subtitle") {
+        // TODO
+      }
+    };
+
+    if (modalAction === "edit") {
+      fetchData();
+    }
+  }, [modalAction, modalType, modalSlug]);
+
+  useEffect(() => {
+    if (modalType) {
       dialogRef.current?.showModal();
     } else {
       dialogRef.current?.close();
     }
-  }, [modalParam]);
+  }, [modalType]);
 
   const handleModal = () => {
     dialogRef.current?.close();
+    setTitle(null);
+    setText(null);
+    setSlug(null);
     setFilePiked(null);
     const params = new URLSearchParams(searchParams);
     params.delete("modal");
+    params.delete("action");
+    if (params.has("slug")) {
+      params.delete("slug");
+    }
+    if (params.has("file")) {
+      params.delete("file");
+    }
     push(`/edit?${params.toString()}`);
   };
 
@@ -53,7 +116,7 @@ export default function Modal() {
 
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      if (modalParam === "new") {
+      if (modalType === "new") {
         setFilePiked(fileReader.result);
       } else {
         const videoURL = URL.createObjectURL(file);
@@ -65,7 +128,7 @@ export default function Modal() {
   };
 
   const modalContent =
-    modalParam !== "subtitle" ? (
+    modalType !== "subtitle" ? (
       <div className="grid gap-5">
         <div className="flex flex-row-reverse items-center gap-5">
           <label htmlFor="title" className="text-xl">
@@ -78,6 +141,8 @@ export default function Modal() {
             name="title"
             placeholder="عنوان مورد نظر را وارد کنید"
             className="w-full px-2 py-1 border-[3px] border-secondary-2 rounded-lg"
+            defaultValue={title}
+            required
           />
         </div>
         <div className="flex flex-row-reverse justify-between">
@@ -93,7 +158,7 @@ export default function Modal() {
           <div className="relative rounded-lg overflow-hidden left-0 w-[200px] h-[150px]">
             {!filePiked ? (
               <p>فایل یافت نشد</p>
-            ) : modalParam === "new" ? (
+            ) : modalType === "new" ? (
               <Image
                 src={filePiked}
                 alt="The image selected by user"
@@ -106,7 +171,7 @@ export default function Modal() {
               </video>
             )}
           </div>
-          {modalParam === "new" ? (
+          {modalType === "new" ? (
             <input
               type="file"
               id="image"
@@ -140,11 +205,12 @@ export default function Modal() {
           placeholder="متن مورد نظر را وارد کنید ..."
           style={{ height: "200px" }}
           className="p-2 border-[3px] border-secondary-2 rounded-xl"
+          required
         />
       </div>
     );
 
-  const modal = modalParam ? (
+  const modal = modalType ? (
     <dialog
       ref={dialogRef}
       className="fixed p-5 top-50 right-50 -translate-x-50 -translate-y-50 z-10 rounded-2xl backdrop:bg-natural-700/70"

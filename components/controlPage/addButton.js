@@ -10,6 +10,7 @@ export default function AddButton({ modal }) {
   const handleButton = () => {
     const params = new URLSearchParams(searchParam);
     params.set("modal", modal);
+    params.set("action", "add");
     replace(`${pathname}?${params.toString()}`);
   };
 
