@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import background from "@/assets/images/university.jpg";
 import logo from "@/assets/images/logo-with-title.png";
