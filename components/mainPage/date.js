@@ -6,15 +6,6 @@ import { useEffect, useState } from "react";
 import logo from "@/assets/images/logo.png";
 
 export default function Date() {
-  const times = {
-    fajr: "04:06",
-    sunrise: "05:34",
-    dhuhr: "12:05",
-    sunset: "18:35",
-    maghrib: "18:54",
-    midnight: "23:21",
-  };
-
   const miladiMonths = {
     1: "January",
     2: "February",
@@ -86,7 +77,7 @@ export default function Date() {
     fetchTime();
   }, []);
 
-  if (!date && !ghamari && !miladi && !time) {
+  if (!date || !time) {
     return <Fallback />;
   }
 
